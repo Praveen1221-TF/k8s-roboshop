@@ -10,4 +10,5 @@ spec:
   containers:
   - name: debug
     image: praveendevops12/debug:v1 
+    imagePullPolicy: Always
     
