@@ -27,3 +27,13 @@ spec:
       containers:
       - name: mongodb
         image: praveendevops12/mongodb:v1
+        readinessProbe:
+          tcpSocket:
+            port: 27017
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        livesnessProbe:
+          tcpSocket:
+            port: 27017
+          initalDelaySeconds: 5
+          periodSeconds: 5
