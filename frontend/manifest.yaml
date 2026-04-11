@@ -7,7 +7,7 @@ metadata:
   labels:
     project: roboshop
     component: frontend
-    tier: frontend 
+    tier: frontend
 spec:
   replicas: 1
   selector:
@@ -43,8 +43,15 @@ spec:
             port: liveness-port
           failureThreshold: 1
           periodSeconds: 15
+        volumeMounts:
+        - name: nginx-config
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+      volumes:
+      - name: nginx-config
+        configMap:
+          name: frontend
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -58,8 +65,5 @@ spec:
     tier: frontend
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 80
-
-
-
+      port: 80 # service port
+      targetPort: 8080 # container port
