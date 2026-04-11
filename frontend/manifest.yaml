@@ -6,8 +6,8 @@ metadata:
   # these are replica set labels
   labels:
     project: roboshop
-    component: frontend
-    tier: frontend
+    component: mongodb
+    tier: frontend 
 spec:
   replicas: 1
   selector:
@@ -43,27 +43,22 @@ spec:
             port: liveness-port
           failureThreshold: 1
           periodSeconds: 15
-        volumeMounts:
-        - name: nginx-config
-          mountPath: /etc/nginx/nginx.conf
-          subPath: nginx.conf
-      volumes:
-      - name: nginx-config
-        configMap:
-          name: frontend
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
   name: frontend
   namespace: roboshop
 spec:
-  type: LoadBalancer
   selector:
     project: roboshop
     component: frontend
     tier: frontend
   ports:
     - protocol: TCP
-      port: 80 # service port
-      targetPort: 80 # container port
+      port: 80
+      targetPort: 80
+
+
+
